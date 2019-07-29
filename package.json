@@ -1,0 +1,68 @@
+{
+  "name": "@matthewadams/ts-test",
+  "version": "0.1.0-pre.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm install && npm test",
+    "transpile": "run-s transpile-main transpile-test",
+    "transpile-main": "rm -rf lib/main && tsc --outDir lib/main --rootDir src/main -d --declarationDir lib/main",
+    "transpile-test": "rm -rf lib/test && tsc --outDir lib/test --rootDir src/test --typeRoots lib/main",
+    "unit-integration": "nyc --check-coverage --statements 86 --branches 77 --functions 83 --lines 91 -x 'lib/test' --exclude-after-remap false mocha 'lib/test/unit/**/*.spec.ts' 'lib/test/integration/**/*.spec.ts'",
+    "postunit-integration": "run-s report",
+    "integration": "nyc --check-coverage -x 'lib/test' --exclude-after-remap false mocha 'lib/test/integration/**/*.spec.ts'",
+    "postintegration": "run-s report",
+    "i": "mocha 'src/test/integration/**/*.spec.ts'",
+    "unit": "nyc --check-coverage -x 'lib/test' --exclude-after-remap false mocha 'lib/test/unit/**/*.spec.ts'",
+    "postunit": "run-s report",
+    "u": "mocha 'src/test/unit/**/*.spec.ts'",
+    "test": "run-s transpile unit-integration lint",
+    "report": "nyc report --reporter=html",
+    "cov": "open coverage/index.html",
+    "lint": "standard --verbose 'src/**/*.ts'",
+    "format": "standard --fix 'src/**/*.ts'",
+    "make-distribution": "run-s transpile finalize-distribution",
+    "finalize-distribution": "copyfiles --verbose package.json package-lock.json lib/main",
+    "prelink": "run-s make-distribution",
+    "link": "cd lib/main && npm link; cd ../..",
+    "unlink": "cd lib/main && npm unlink; cd ../.."
+  },
+  "dependencies": {
+    "uuid": "3.3.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "1.12.0",
+    "@typescript-eslint/parser": "1.12.0",
+    "acorn": "6.1.1",
+    "chai": "4.2.0",
+    "copyfiles": "2.1.0",
+    "dirty-chai": "2.0.1",
+    "mocha": "6.1.4",
+    "npm-run-all": "4.1.5",
+    "nyc": "14.1.1",
+    "source-map-support": "0.5.12",
+    "standard": "12.0.1",
+    "ts-node": "8.3.0",
+    "typescript": "3.5.3"
+  },
+  "standard": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint/eslint-plugin"
+    ]
+  },
+  "nyc": {
+    "require": [
+      "ts-node/register"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  },
+  "mocha": {
+    "require": [
+      "ts-node/register",
+      "source-map-support/register"
+    ],
+    "colors": true,
+    "full-trace": true
+  }
+}
