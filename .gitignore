@@ -1,10 +1,5 @@
 lib/
-.firebaserc
-firebase.json
-.firestore.indexes.*.json
-.firestore.*.rules
-!.firestore.indexes.default.json
-!.firestore.default.rules
+dist/
 
 # Created by https://www.gitignore.io/api/node,macos,windows,linux,jetbrains+all,eclipse
 

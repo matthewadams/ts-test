@@ -13,6 +13,6 @@
     "listFiles": true,
     "module": "commonjs",
     "pretty": true,
-    "target": "es2015"
+    "target": "es2017"
   }
 }
