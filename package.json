@@ -62,11 +62,7 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint/eslint-plugin"
-    ],
-    "rules": {
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error"
-    }
+    ]
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",

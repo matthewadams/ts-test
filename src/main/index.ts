@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
-import express, { Express } from 'express'
+import { Express } from 'express'
+import express = require('express')
 
-const port: number = 3000
+const port = 3000
 const app: Express = express()
 
 app.get('/', (req, res) => {
